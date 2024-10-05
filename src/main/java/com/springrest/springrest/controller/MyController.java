@@ -10,7 +10,7 @@ import java.util.Scanner;
 @RestController
 @RequestMapping(value="/api/v1/course")
 public class MyController {
-    Scanner scanner = new Scanner(System.in)  ;
+    Scanner scanner = new Scanner(System.in) ;
 
     // get the courses
     @Autowired                   // Dependency Injection

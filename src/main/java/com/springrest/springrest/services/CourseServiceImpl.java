@@ -2,6 +2,7 @@ package com.springrest.springrest.services;
 import com.springrest.springrest.Dao.CourseDao;
 import com.springrest.springrest.entities.Course;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,10 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private CourseDao courseDao ;
+
+    @Autowired
+    private Course course ;
+
 
     @Override
     public List<Course> getCourses() {

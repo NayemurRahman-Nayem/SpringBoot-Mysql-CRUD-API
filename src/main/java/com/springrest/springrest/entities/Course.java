@@ -1,47 +1,23 @@
 package com.springrest.springrest.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.core.SpringVersion;
+import org.springframework.stereotype.Service;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Getter
 @Entity
+@Service
 public class Course {
     @Id
     private long id ;
     private String title ;
     private String description ;
-    public Course(long id , String title , String description) {
-        super();
-        this.id = id ;
-        this.title = title ;
-        this.description = description;
-    }
-    public Course() {
-        super();
-    }
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public long getId() {
-        return this.id;
-    }
-    public void setId(long id) {
-        this.id = id;
-    }
-    public String getDescription() {
-        return this.description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }
