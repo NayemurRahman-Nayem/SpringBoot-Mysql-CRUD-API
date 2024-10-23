@@ -1,10 +1,14 @@
 package com.springrest.springrest.services;
 import com.springrest.springrest.Dao.BookDao;
 import com.springrest.springrest.entities.BookEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +20,13 @@ public class BookServiceImpl implements BookService{
     @Autowired
     private BookDao bookDao ;
 
+//    @Autowired
+//    private RedisTemplate<String, Object> redisTemplate;
+
     @Override
+    @Cacheable(value = "books")
     public List<BookEntity> getBooks() {
+        System.out.println("Get the books from DB");
         return bookDao.findAll();
     }
 
@@ -28,9 +37,11 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public BookEntity addBook(BookEntity book) {
+    @CachePut(value = "books")
+    public List<BookEntity> addBook(BookEntity book) {
         bookDao.save(book) ;
-        return book ;
+        List<BookEntity> books = bookDao.findAll();
+        return books ;
     }
 
     @Override

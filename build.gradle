@@ -32,6 +32,18 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/org.projectlombok/lombok
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.34'
+
+
+	// https://mvnrepository.com/artifact/org.springframework/spring-web-reactive
+	implementation group: 'org.springframework', name: 'spring-web-reactive', version: '5.0.0.M4'
+
+	// https://mvnrepository.com/artifact/org.springframework/spring-webflux
+	implementation group: 'org.springframework', name: 'spring-webflux', version: '6.1.13'
+
+
+	// https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis
+	implementation group: 'org.springframework.data', name: 'spring-data-redis', version: '3.3.5'
+
 }
 
 tasks.named('test') {

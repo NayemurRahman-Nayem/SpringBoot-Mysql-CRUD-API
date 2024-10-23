@@ -1,8 +1,10 @@
 package com.springrest.springrest.controller;
+import ch.qos.logback.classic.Logger;
 import com.springrest.springrest.Dao.BookDao;
 import com.springrest.springrest.entities.BookEntity;
 import com.springrest.springrest.services.BookService;
 import com.springrest.springrest.services.BookServiceImpl;
+import com.springrest.springrest.services.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -17,7 +19,6 @@ public class BookController {
     // get the courses
     @Autowired                   // Dependency Injection
     private BookServiceImpl bookService;
-
 
     // Get all the course
     @RequestMapping(path="/books",method= RequestMethod.GET)
@@ -38,8 +39,13 @@ public class BookController {
     }
 
     @RequestMapping(path="/books",method=RequestMethod.POST)
-    public BookEntity AddBook(@RequestBody BookEntity book) {
-        return this.bookService.addBook(book) ;
+    public void AddBook(@RequestBody BookEntity book) {
+        try{
+            this.bookService.addBook(book) ;
+        }
+        catch(Exception e) {
+            System.out.printf(e.getMessage()) ;
+        }
     }
 
     //update the title of the couse having id = id ;
@@ -52,5 +58,19 @@ public class BookController {
     @RequestMapping(path="/{isbn}",method=RequestMethod.DELETE)
     public void DeleteBook(@PathVariable(value="isbn") String isbn) {
         this.bookService.deleteBook(Long.parseLong(isbn));
+    }
+
+    // For Redis Purpose
+
+    @Autowired
+    private RedisService redisService;
+
+
+    // API to store the 'name' in Redis
+    @PostMapping("/store-name")
+    public String storeName(@RequestBody String name) {
+        // Call the service to store the 'name' in Redis
+        redisService.storeNameInRedis(name);
+        return "Name stored in Redis successfully!";
     }
 }
